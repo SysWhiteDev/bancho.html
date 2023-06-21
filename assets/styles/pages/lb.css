@@ -62,8 +62,13 @@
   margin-right: 1px;
   margin-left: 1px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
+.selector > * > i {
+  margin-right: 5px;
+}
 .selector > *:hover:not(.sactive) {
   background-color: rgba(0, 51, 76, 0.351);
   padding-right: 25px;
@@ -192,6 +197,9 @@
   width: 50%;
 }
 
+.extend {
+  width: 100%;
+}
 .top23 > .top {
   margin-bottom: 0;
 }

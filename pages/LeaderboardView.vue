@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper">
-   
     <div>
-       <alert />
+      <alert />
       <div class="tabletitle">
         <div class="title">Leaderboard</div>
         <div class="selectors">
@@ -97,6 +96,10 @@
         <img class="loading" src="@/assets/icons/loading.svg" />
         <p>Hold tight, we are still loading...</p>
       </div>
+      <div class="loadingwrapper" v-if="(!loading && !error) && !lbdata[0]">
+        <img class="loading" src="@/assets/icons/sad.svg" style="animation: none"/>
+        <p>There is no one here, maybe set a score?</p>
+      </div>
       <div class="loadingwrapper" v-if="error">
         <img
           class="loading"
@@ -109,6 +112,7 @@
         <div
           class="top top1 player"
           @click="$router.push(`/u/${lbdata[0].player_id}`)"
+          v-if="lbdata[0]"
         >
           <div class="leaderboard-player-rank">
             <i class="fa-solid fa-trophy badge" style="color: #f9cb6b"></i>
@@ -163,6 +167,8 @@
           <div
             class="top top2 player"
             style="margin-top: 0"
+            v-if="lbdata[1]"
+            :class="{extend: !lbdata[2]}"
             @click="$router.push(`/u/${lbdata[1].player_id}`)"
           >
             <div class="leaderboard-player-rank">
@@ -217,6 +223,7 @@
           <div
             class="top top3 player"
             style="margin-top: 0"
+            v-if="lbdata[2]"
             @click="$router.push(`/u/${lbdata[2].player_id}`)"
           >
             <div class="leaderboard-player-rank">
@@ -272,7 +279,11 @@
             </div>
           </div>
         </div>
-        <div class="player" style="background: transparent; padding: 0">
+        <div
+          class="player"
+          style="background: transparent; padding: 0"
+          v-if="lbdata[4]"
+        >
           <div class="left"></div>
           <div class="right" style="padding: 0">
             <p

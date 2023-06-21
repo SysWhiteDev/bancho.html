@@ -1,0 +1,116 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper > div {
+  margin-top: 40px;
+  width: 60%;
+  min-height: calc(100vh - 130px);
+  background-color: var(--color-3);
+  color: var(--color-6);
+  border-radius: 7px 7px 0px 0px;
+  overflow: auto;
+}
+
+/* titlebar */
+.titlebar {
+  background-color: var(--color-2);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(15px, 2vw, 20px);
+  height: 30px;
+}
+
+/* left */
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.left > i {
+  margin-right: 10px;
+}
+
+/* right */
+.selector {
+  display: flex;
+}
+
+.selector > * {
+  border-radius: 7px;
+  padding: 7px;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-right: 2px;
+  margin-left: 2px;
+  transition: all 0.2s;
+  font-size: 15px;
+}
+
+.selector > *:hover:not(.sactive) {
+  background-color: rgba(255, 255, 255, 0.051);
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.sactive {
+  background-color: rgba(255, 255, 255, 0.187);
+  padding-right: 7px;
+  padding-left: 7px;
+}
+
+.sdisabled {
+  opacity: 0.4;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* userprofile */
+.banner {
+  background-image: url("https://osu.gatari.pw/static/images/covers/c3.jpg");
+  background-size: cover;
+  height: 250px;
+  position: relative;
+}
+
+/* - userdata */
+.userdata {
+  background-color: var(--color-2);
+  display: flex;
+  height: 150px;
+}
+
+.pfp {
+  border-radius: 7px;
+  transform: translateY(-40px);
+  margin-left: 50px;
+  width: 150px;
+  margin-right: 20px;
+  background-color: var(--color-6);
+}
+
+/* -- userdatatext */
+.text {
+  margin-top: 15px;
+}
+
+.usernametext {
+  font-size: clamp(20px, 5vw, 25px);
+  font-weight: bold;
+}
+
+.country {
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  font-size: clamp(15px, 3vw, 17px);
+}
+
+.flag {
+  width: 30px;
+  margin-right: 7px;
+}

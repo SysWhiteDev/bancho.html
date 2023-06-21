@@ -2,6 +2,12 @@
 # bancho.html
 bancho.html aims to be an alternative frontend for bancho.py-based servers.
 
+## Screenshots
+<div align="center">
+<img src="https://i.imgur.com/8u0oj8m.png" width="49.5%">
+<img src="https://i.imgur.com/dcjngHK.png" width="49.5%">
+</div>
+
 ## Roadmap
 - [x] Leaderboards
 - [ ] User profiles

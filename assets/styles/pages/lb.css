@@ -185,11 +185,22 @@
   margin-left: 10px;
   display: inline-block;
 }
+
+.top1 {
+  margin-top: 30px;
+}
 .top1 > .leaderboard-player-rank {
   font-size: clamp(80px, 6vw, 120px);
 }
 
-.top23 {
+.top2 {
+  background: linear-gradient(75deg, var(--color-2) 60%, rgb(118, 118, 118) 100%);
+}
+
+.top3 {
+  background: linear-gradient(75deg, var(--color-2) 60%, rgb(165, 103, 63) 100%);
+}
+/* .top23 {
   display: flex;
 }
 
@@ -209,7 +220,7 @@
 
 .top23 > .top > .userdata > .leaderboard-player-name {
   font-size: clamp(20px, 5vw, 40px);
-}
+} */
 
 /* top colors */
 .top {

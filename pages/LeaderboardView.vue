@@ -113,6 +113,7 @@
           class="top top1 player"
           @click="$router.push(`/u/${lbdata[0].player_id}`)"
           v-if="lbdata[0]"
+          :style="`background-image: url(https://${config.public.base_url}banners/${lbdata[0].player_id}); background-size: cover;`"
         >
           <div class="leaderboard-player-rank">
             <i class="fa-solid fa-trophy badge" style="color: #f9cb6b"></i>
@@ -163,122 +164,6 @@
             </div>
           </div>
         </div>
-        <div class="top23">
-          <div
-            class="top top2 player"
-            style="margin-top: 0"
-            v-if="lbdata[1]"
-            :class="{extend: !lbdata[2]}"
-            @click="$router.push(`/u/${lbdata[1].player_id}`)"
-          >
-            <div class="leaderboard-player-rank">
-              <i class="fa-solid fa-medal badge" style="color: #999999"></i>
-            </div>
-            <div class="userdata">
-              <div class="leaderboard-player-name">
-                <p>
-                  {{ lbdata[1].name
-                  }}<img :src="getFlagURL(lbdata[1].country)" class="flag" />
-                </p>
-                <div class="stats" style="font-size: clamp(15px, 5vw, 17px)">
-                  <div class="pp">
-                    <p v-if="selecteddata.sorting == sorts.pp">
-                      {{ formatNumber(lbdata[1].pp) }}
-                      <br /><span style="font-weight: bold">pp</span>
-                    </p>
-                    <p v-else>
-                      {{ formatNumber(lbdata[1].rscore) }}<br /><span
-                        style="font-weight: bold"
-                        >score</span
-                      >
-                    </p>
-                  </div>
-                  <div class="acc">
-                    <p>
-                      {{ lbdata[1].acc.toFixed(2) }}%<br /><span
-                        style="font-weight: bold"
-                        >acc</span
-                      >
-                    </p>
-                  </div>
-                  <div class="plays">
-                    <p>
-                      {{ lbdata[1].plays }}<br /><span style="font-weight: bold"
-                        >plays</span
-                      >
-                    </p>
-                  </div>
-                  <div class="combo">
-                    <p>
-                      {{ lbdata[1].max_combo }}<br /><span
-                        style="font-weight: bold"
-                        >max combo</span
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="top top3 player"
-            style="margin-top: 0"
-            v-if="lbdata[2]"
-            @click="$router.push(`/u/${lbdata[2].player_id}`)"
-          >
-            <div class="leaderboard-player-rank">
-              <i
-                class="fa-solid fa-award badge"
-                style="color: rgb(165, 103, 63)"
-              ></i>
-            </div>
-            <div class="userdata">
-              <div class="leaderboard-player-name">
-                <p>
-                  {{ lbdata[2].name
-                  }}<img :src="getFlagURL(lbdata[2].country)" class="flag" />
-                </p>
-                <div class="stats" style="font-size: clamp(15px, 5vw, 17px)">
-                  <div class="pp">
-                    <p v-if="selecteddata.sorting == sorts.pp">
-                      {{ formatNumber(lbdata[2].pp) }}
-                      <br /><span style="font-weight: bold">pp</span>
-                    </p>
-                    <p v-else>
-                      {{ formatNumber(lbdata[2].rscore) }}<br /><span
-                        style="font-weight: bold"
-                        >score</span
-                      >
-                    </p>
-                  </div>
-                  <div class="acc">
-                    <p>
-                      {{ lbdata[2].acc.toFixed(2) }}%<br /><span
-                        style="font-weight: bold"
-                        >acc</span
-                      >
-                    </p>
-                  </div>
-                  <div class="plays">
-                    <p>
-                      {{ lbdata[0].plays }}<br /><span style="font-weight: bold"
-                        >plays</span
-                      >
-                    </p>
-                  </div>
-                  <div class="combo">
-                    <p>
-                      {{ lbdata[2].max_combo }}<br /><span
-                        style="font-weight: bold"
-                        >max combo</span
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div
           class="player"
           style="background: transparent; padding: 0"
@@ -299,14 +184,15 @@
           </div>
         </div>
         <div
-          class="player top4"
-          v-for="(player, index) in lbdata.slice(3)"
+          class="player"
+          v-for="(player, index) in lbdata.slice(1)"
+          :class="'top' + (index + 2)"
           :key="player.player_id"
           @click="$router.push(`/u/${player.player_id}`)"
         >
           <div class="left">
             <img :src="getFlagURL(player.country)" class="flag" />
-            <div class="leaderboard-player-rank">#{{ index + 4 }}</div>
+            <div class="leaderboard-player-rank">#{{ index + 2 }}</div>
             <div class="leaderboard-player-name">{{ player.name }}</div>
           </div>
           <div class="right">

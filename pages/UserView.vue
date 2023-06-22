@@ -330,6 +330,18 @@
               />
             </div>
             <div
+              class="loadingwrapper"
+              v-if="player_best && player_best.length === 0"
+              style="margin: 40px"
+            >
+              <img
+                class="loading"
+                src="@/assets/icons/sad.svg"
+                style="animation: none"
+              />
+              <p>User doesn't have any best score.</p>
+            </div>
+            <div
               class="play"
               v-for="play in player_best"
               :key="play.id"
@@ -401,6 +413,18 @@
                 src="@/assets/icons/loading.svg"
                 style="margin: 0"
               />
+            </div>
+            <div
+              class="loadingwrapper"
+              v-if="player_recent && player_recent.length === 0"
+              style="margin: 40px"
+            >
+              <img
+                class="loading"
+                src="@/assets/icons/sad.svg"
+                style="animation: none"
+              />
+              <p>User doesn't have any recent score.</p>
             </div>
             <div
               class="play"
@@ -499,7 +523,7 @@ export default {
         SH: "S",
         S: "S+",
         XH: "X",
-        X: "X+"
+        X: "X+",
       },
       selecteddata: {
         mode: 0,
@@ -509,7 +533,7 @@ export default {
       sectionstatuses: {
         aboutme: true,
         recent: true,
-        best: true,
+        best: false,
       },
       loading: true,
       player_info: null,

@@ -24,6 +24,31 @@
   background-color: rgba(128, 128, 128, 0.16);
 }
 
+/* LIVE INDICATOR */
+.liveind {
+  background-color: rgb(255, 61, 61);
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  opacity: 1;
+  animation: 5s live linear infinite;
+}
+
+@keyframes live {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
 /* titlebar */
 .titlebar {
   background-color: var(--color-2);
@@ -142,6 +167,7 @@
   margin-right: 20px;
   background-color: var(--color-6);
   transition: all 0.2s;
+  outline-offset: 0px;
 }
 
 .pfp.online {
@@ -332,8 +358,18 @@
   border-radius: 7px;
   background-color: var(--color-3);
   padding: 15px;
+  opacity: 1;
+  animation: fadein 0.2s linear;
 }
 
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .play > div {
   display: flex;
   justify-content: space-between;
@@ -353,6 +389,7 @@
   margin-right: 10px;
   font-weight: bold;
   width: 40px;
+  text-align: center;
 }
 
 .bmtitle {

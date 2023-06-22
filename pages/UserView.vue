@@ -286,9 +286,18 @@
                 <i class="fa-solid fa-address-book"></i>
                 <p>About me</p>
               </div>
-              <i class="sectionbutton fa-solid fa-circle-chevron-up" :class="{sectionclosed: this.sectionstatuses.aboutme}" @click="this.sectionstatuses.aboutme = !this.sectionstatuses.aboutme"></i>
+              <i
+                class="sectionbutton fa-solid fa-circle-chevron-up"
+                :class="{ sectionclosed: this.sectionstatuses.aboutme }"
+                @click="
+                  this.sectionstatuses.aboutme = !this.sectionstatuses.aboutme
+                "
+              ></i>
             </div>
-            <div class="content aboutmecont" :class="{sectionclosed: this.sectionstatuses.aboutme}">
+            <div
+              class="content aboutmecont"
+              :class="{ sectionclosed: this.sectionstatuses.aboutme }"
+            >
               <p>About me not supported yet.</p>
             </div>
           </div>
@@ -298,13 +307,22 @@
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <p>Recent plays</p>
               </div>
-              <i
-                class="sectionbutton fa-solid fa-circle-chevron-up"
-                :class="{ sectionclosed: sectionstatuses.recent }"
-                @click="
-                  this.sectionstatuses.recent = !this.sectionstatuses.recent
-                "
-              ></i>
+              <div>
+                <div
+                  v-if="player_status.online && player_status.status.action === 2"
+                  class="liveind"
+                  style="margin-right: 10px"
+                >
+                  LIVE
+                </div>
+                <i
+                  class="sectionbutton fa-solid fa-circle-chevron-up"
+                  :class="{ sectionclosed: sectionstatuses.recent }"
+                  @click="
+                    this.sectionstatuses.recent = !this.sectionstatuses.recent
+                  "
+                ></i>
+              </div>
             </div>
             <div
               class="content"
@@ -320,6 +338,34 @@
                   src="@/assets/icons/loading.svg"
                   style="margin: 0"
                 />
+              </div>
+              <div
+                class="play"
+                v-if="player_status.online && player_status.status.action === 2"
+                :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${player_status.status.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
+              >
+                <div>
+                  <div class="titlespace">
+                    <div class="grade">
+                      <p>?</p>
+                    </div>
+                    <div>
+                      <div>
+                        <p class="bmtitle">
+                          {{ player_status.status.beatmap.artist }} |
+                          {{ player_status.status.beatmap.title }}
+                        </p>
+                        <p class="bmver">
+                          {{ player_status.status.beatmap.version }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bmstats">
+                    <p class="bmppstat">LIVE</p>
+                    <p>Accuracy: <b>?.??%</b></p>
+                  </div>
+                </div>
               </div>
               <div
                 class="play"
@@ -361,7 +407,6 @@
 const { countries } = countriesList();
 const config = useRuntimeConfig();
 </script>
-
 
 <script>
 // load stlyes

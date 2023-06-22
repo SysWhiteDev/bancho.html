@@ -301,6 +301,51 @@
               <p>About me not supported yet.</p>
             </div>
           </div>
+          <!-- Best plays -->
+          <div class="best section">
+            <p class="sectiontitle">
+              <i class="fa-solid fa-trophy"></i> Best plays
+            </p>
+            <div
+              class="loadingwrapper"
+              v-if="!player_best"
+              style="margin: 40px"
+            >
+              <img
+                class="loading"
+                src="@/assets/icons/loading.svg"
+                style="margin: 0"
+              />
+            </div>
+            <div
+              class="play"
+              v-for="play in player_best"
+              :key="play.id"
+              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
+            >
+              <div>
+                <div class="titlespace">
+                  <div class="grade">
+                    <p>{{ play.grade }}</p>
+                  </div>
+                  <div>
+                    <div>
+                      <p class="bmtitle">
+                        {{ play.beatmap.artist }} | {{ play.beatmap.title }}
+                      </p>
+                      <p class="bmver">{{ play.beatmap.version }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="bmstats">
+                  <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
+                  <p>Accuracy: <b>{{ play.acc.toFixed(2) }}%</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Recent plays -->
           <div class="recent section">
             <div class="sectiontitle">
               <div>
@@ -397,7 +442,6 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -446,6 +490,7 @@ export default {
       this.getPlayerStatus();
     }, 5000);
     this.getPlayerRecent();
+    this.getPlayerBest();
   },
   methods: {
     // USER SELECTION FUNCTIONS
@@ -462,11 +507,15 @@ export default {
       this.selecteddata.mode = this.modes[mode];
       this.player_recent = null;
       this.getPlayerRecent();
+      this.player_best = null;
+      this.getPlayerBest();
     },
     selectmod(mod) {
       this.selecteddata.mod = this.mods[mod];
       this.player_recent = null;
       this.getPlayerRecent();
+      this.player_best = null;
+      this.getPlayerBest();
     },
     // FORMATTING FUNCTIONSS
     formatSeconds(seconds) {
@@ -509,6 +558,16 @@ export default {
         }&scope=recent&limit=5`
       );
       this.player_recent = data.scores;
+    },
+    async getPlayerBest() {
+      const data = await $fetch(
+        `${this.$config.public.api_url}get_player_scores?id=${
+          this.$route.params.id
+        }&mode=${
+          this.selecteddata.mod + this.selecteddata.mode
+        }&scope=best&limit=5`
+      );
+      this.player_best = data.scores;
     },
   },
 };

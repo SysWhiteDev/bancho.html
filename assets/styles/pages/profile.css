@@ -1,3 +1,7 @@
+* {
+  transition: transform, height 0.2s ease-out;
+}
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -11,9 +15,32 @@
   background-color: var(--color-3);
   color: var(--color-6);
   border-radius: 7px 7px 0px 0px;
-  overflow: auto;
 }
 
+.vertdivider {
+  width: 2px;
+  height: 220px;
+  border-radius: 7px;
+  background-color: rgba(128, 128, 128, 0.16);
+}
+
+.section {
+  background-color: var(--color-2);
+  border: 3px solid var(--color-1);
+  margin: 10px;
+  border-radius: 7px;
+}
+
+.sectiontitle {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: var(--color-1);
+}
+
+.sectiontitle > i {
+  margin-right: 10px;
+}
 /* titlebar */
 .titlebar {
   background-color: var(--color-2);
@@ -28,7 +55,6 @@
 /* left */
 .left {
   display: flex;
-  align-items: center;
 }
 
 .left > i {
@@ -71,26 +97,72 @@
 
 /* userprofile */
 .banner {
-  background-image: url("https://osu.gatari.pw/static/images/covers/c3.jpg");
   background-size: cover;
   height: 250px;
   position: relative;
+  background-color: var(--color-4);
+}
+
+/* bannerclose button */
+.bannerbutton {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: all 0.4s;
+  color: var(--color-6);
+}
+
+.bannerbutton:hover {
+  color: var(--color-5);
+}
+
+.bannerbutton.bannerclosed {
+  transform: rotate(180deg);
+}
+
+/* bannerclosed status */
+.bannerclosed.banner {
+  height: 0px;
+}
+
+.bannerclosed > .pfp {
+  transform: translateY(0px);
+  margin: 20px;
+  height: 80px;
+  width: 80px;
+  box-sizing: content-box;
+}
+
+.userdata.bannerclosed {
+  height: auto;
 }
 
 /* - userdata */
 .userdata {
-  background-color: var(--color-2);
+  position: relative;
+  background-color: var(--color-3);
   display: flex;
   height: 150px;
+  align-items: flex-start;
 }
 
+/* - pfp */
 .pfp {
   border-radius: 7px;
   transform: translateY(-40px);
   margin-left: 50px;
   width: 150px;
+  height: 150px;
   margin-right: 20px;
   background-color: var(--color-6);
+  transition: all 0.2s;
+}
+
+.pfp.online {
+  outline: 3px solid rgb(84, 255, 84);
+  outline-offset: 4px;
 }
 
 /* -- userdatatext */
@@ -113,4 +185,150 @@
 .flag {
   width: 30px;
   margin-right: 7px;
+}
+
+/* rankwrapper */
+.rankwrapper {
+  background-color: var(--color-2);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rankwrapper > .left {
+  flex: 0.6;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rankwrapper > .right {
+  flex: 0.3;
+  flex-direction: column;
+}
+/* - rankings */
+.rankings {
+  display: flex;
+  justify-content: space-between;
+}
+.ranking {
+  margin-right: 20px;
+}
+
+.ranking > .label {
+  font-size: clamp(15px, 2vw, 17px);
+}
+.ranking > .rankno {
+  font-size: clamp(25px, 2vw, 30px);
+}
+
+/* - graph */
+.left > .graph {
+  box-sizing: border-box;
+  background-color: var(--color-3);
+  padding: 20px;
+  border-radius: 7px;
+  margin-top: 20px;
+  width: 400px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* - stats */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.stats > div {
+  display: flex;
+}
+
+.stat {
+  margin-right: 15px;
+}
+
+.stat > :nth-child(1) {
+  font-weight: bold;
+  font-size: clamp(14px, 2vw, 15px);
+}
+
+.stat > :nth-child(2) {
+  font-size: clamp(15px, 2vw, 17px);
+}
+
+/* - keys/values */
+.rankwrapper > .right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: clamp(13px, 1vw, 20px);
+  margin-right: 20px;
+}
+
+.keys {
+  font-weight: bold;
+}
+.values {
+  text-align: right;
+}
+
+/* aboutme */
+.aboutmecont {
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+/* plays */
+.play {
+  margin: 20px;
+  border-radius: 7px;
+  background-color: var(--color-3);
+  padding: 15px;
+}
+
+.play > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.play > div > div {
+  display: flex;
+}
+
+.titlespace {
+  align-items: center;
+}
+
+.grade {
+  font-size: clamp(40px, 3vw, 50px);
+  margin-right: 10px;
+  font-weight: bold;
+  width: 40px;
+}
+
+.bmtitle {
+  font-weight: bold;
+  font-size: clamp(15px, 3vw, 20px);
+}
+
+.bmver {
+  font-size: clamp(15px, 3vw, 17px);
+}
+
+.bmstats {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bmppstat {
+  font-size: clamp(20px, 3vw, 30px);
 }

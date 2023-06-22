@@ -96,8 +96,12 @@
         <img class="loading" src="@/assets/icons/loading.svg" />
         <p>Hold tight, we are still loading...</p>
       </div>
-      <div class="loadingwrapper" v-if="(!loading && !error) && !lbdata[0]">
-        <img class="loading" src="@/assets/icons/sad.svg" style="animation: none"/>
+      <div class="loadingwrapper" v-if="!loading && !error && !lbdata[0]">
+        <img
+          class="loading"
+          src="@/assets/icons/sad.svg"
+          style="animation: none"
+        />
         <p>There is no one here, maybe set a score?</p>
       </div>
       <div class="loadingwrapper" v-if="error">
@@ -192,7 +196,13 @@
         >
           <div class="left">
             <img :src="getFlagURL(player.country)" class="flag" />
-            <div class="leaderboard-player-rank">#{{ index + 2 }}</div>
+            <div class="leaderboard-player-rank" v-if="index === 0">
+              <i class="fa-solid fa-medal"></i>
+            </div>
+            <div class="leaderboard-player-rank" v-else-if="index === 1">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="leaderboard-player-rank" v-else>#{{ index + 2 }}</div>
             <div class="leaderboard-player-name">{{ player.name }}</div>
           </div>
           <div class="right">

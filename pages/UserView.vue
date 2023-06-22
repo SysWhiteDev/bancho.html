@@ -8,7 +8,7 @@
           <p>player info</p>
         </div>
         <div class="right">
-          <div class="selector sdisabled">
+          <div class="selector">
             <div
               :class="{ sactive: selecteddata.mode == modes.std }"
               @click="selectmode('std')"
@@ -74,8 +74,16 @@
         </div>
       </div>
       <div class="userprofile">
-        <div class="banner"></div>
-        <div class="userdata">
+        <div
+          class="banner"
+          :style="
+            player_info
+              ? `background-image: url(https://${config.public.base_url}banners/${player_info.info.id}); background-size: cover;`
+              : undefined
+          "
+          :class="{ bannerclosed: bannerclosed }"
+        ></div>
+        <div class="userdata" :class="{ bannerclosed: bannerclosed }">
           <img
             :src="
               player_info
@@ -83,21 +91,245 @@
                 : `https://a.${config.public.base_url}`
             "
             class="pfp"
+            :class="{ online: player_status && player_status.online }"
           />
 
           <div class="text">
-            <p class="usernametext">{{ player_info ? player_info.info.name: "..." }}</p>
+            <p class="usernametext">
+              {{ player_info ? player_info.info.name : "..." }}
+            </p>
             <div class="country">
-              <img :src="player_info ? getFlagURL(player_info.info.country) : getFlagURL('xx')" class="flag" />
-              <p>{{ player_info ? countries[player_info.info.country.toUpperCase()] : countries['XX'] }}</p>
+              <img
+                :src="
+                  player_info
+                    ? getFlagURL(player_info.info.country)
+                    : getFlagURL('xx')
+                "
+                class="flag"
+              />
+              <p>
+                {{
+                  player_info
+                    ? countries[player_info.info.country.toUpperCase()]
+                    : countries["XX"]
+                }}
+              </p>
             </div>
-             
-          </div> 
+          </div>
+          <i
+            class="bannerbutton fa-solid fa-circle-chevron-up"
+            @click="bannerclosed = !bannerclosed"
+            :class="{ bannerclosed: bannerclosed }"
+          ></i>
         </div>
-        <!-- {{ player_info }} -->
         <div class="loadingwrapper" v-if="loading">
           <img class="loading" src="@/assets/icons/loading.svg" />
           <p>Hold tight, stats are loading...</p>
+        </div>
+        <div v-else>
+          <div class="rankwrapper" :class="{ bannerclosed: bannerclosed }">
+            <div class="left">
+              <div class="rankings">
+                <div class="ranking">
+                  <p class="label">Global ranking</p>
+                  <p class="rankno">
+                    #{{
+                      player_info.stats[selecteddata.mode + selecteddata.mod]
+                        .rank
+                    }}
+                  </p>
+                </div>
+                <div class="ranking">
+                  <p class="label">Country ranking</p>
+                  <p class="rankno">
+                    #{{
+                      player_info.stats[selecteddata.mode + selecteddata.mod]
+                        .country_rank
+                    }}
+                  </p>
+                </div>
+              </div>
+              <div class="graph">
+                <p style="z-index: 2">Graphs are not supported yet.</p>
+              </div>
+              <div class="stats">
+                <div>
+                  <div class="stat">
+                    <p>pp</p>
+                    <p>
+                      {{
+                        addDividingPoints(
+                          player_info.stats[
+                            selecteddata.mode + selecteddata.mod
+                          ].pp
+                        )
+                      }}
+                    </p>
+                  </div>
+                  <div class="stat">
+                    <p>play time</p>
+                    <p>
+                      {{
+                        formatSeconds(
+                          player_info.stats[
+                            selecteddata.mode + selecteddata.mod
+                          ].playtime
+                        )
+                      }}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <div class="stat">
+                    <p>SS+</p>
+                    <p>
+                      {{
+                        player_info.stats[selecteddata.mode + selecteddata.mod]
+                          .x_count
+                      }}
+                    </p>
+                  </div>
+                  <div class="stat">
+                    <p>SS</p>
+                    <p>
+                      {{
+                        player_info.stats[selecteddata.mode + selecteddata.mod]
+                          .xh_count
+                      }}
+                    </p>
+                  </div>
+                  <div class="stat">
+                    <p>S+</p>
+                    <p>
+                      {{
+                        player_info.stats[selecteddata.mode + selecteddata.mod]
+                          .s_count
+                      }}
+                    </p>
+                  </div>
+                  <div class="stat">
+                    <p>S</p>
+                    <p>
+                      {{
+                        player_info.stats[selecteddata.mode + selecteddata.mod]
+                          .sh_count
+                      }}
+                    </p>
+                  </div>
+                  <div class="stat">
+                    <p>A</p>
+                    <p>
+                      {{
+                        player_info.stats[selecteddata.mode + selecteddata.mod]
+                          .a_count
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="vertdivider" />
+            <div class="right">
+              <div class="keys">
+                <p>total score</p>
+                <p>ranked score</p>
+                <p>accuracy</p>
+                <p>plays</p>
+                <p>max combo</p>
+              </div>
+              <div class="values">
+                <p>
+                  {{
+                    addDividingPoints(
+                      player_info.stats[selecteddata.mode + selecteddata.mod]
+                        .tscore
+                    )
+                  }}
+                </p>
+                <p>
+                  {{
+                    addDividingPoints(
+                      player_info.stats[selecteddata.mode + selecteddata.mod]
+                        .rscore
+                    )
+                  }}
+                </p>
+                <p>
+                  {{
+                    player_info.stats[
+                      selecteddata.mode + selecteddata.mod
+                    ].acc.toFixed(2)
+                  }}%
+                </p>
+                <p>
+                  {{
+                    addDividingPoints(
+                      player_info.stats[selecteddata.mode + selecteddata.mod]
+                        .plays
+                    )
+                  }}
+                </p>
+                <p>
+                  {{
+                    addDividingPoints(
+                      player_info.stats[selecteddata.mode + selecteddata.mod]
+                        .max_combo
+                    )
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="aboutme section">
+            <p class="sectiontitle">
+              <i class="fa-solid fa-address-card"></i>About me
+            </p>
+            <div class="aboutmecont">
+              <p>About me not supported yet.</p>
+            </div>
+          </div>
+          <div class="recent section">
+            <p class="sectiontitle">
+              <i class="fa-solid fa-clock-rotate-left"></i> Recent plays
+            </p>
+            <div
+              class="loadingwrapper"
+              v-if="!player_recent"
+              style="margin: 40px"
+            >
+              <img
+                class="loading"
+                src="@/assets/icons/loading.svg"
+                style="margin: 0"
+              />
+            </div>
+            <div
+              class="play"
+              v-for="play in player_recent"
+              :key="play.id"
+              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
+            >
+              <div>
+                <div class="titlespace">
+                  <div class="grade">
+                    <p>{{ play.grade }}</p>
+                  </div>
+                  <div>
+                    <div>
+                      <p class="bmtitle">
+                        {{ play.beatmap.artist }} | {{ play.beatmap.title }}
+                      </p>
+                      <p class="bmver">{{ play.beatmap.version }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="bmstats">
+                  <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
+                  <p>Accuracy: <b>{{ play.acc.toFixed(2) }}%</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -133,29 +365,56 @@ export default {
       },
       loading: true,
       player_info: null,
+      player_status: null,
+      bannerclosed: false,
     };
   },
   mounted() {
     this.getPlayerData();
+    this.getPlayerStatus();
+    setInterval(() => {
+      this.getPlayerStatus();
+    }, 5000);
+    this.getPlayerRecent();
   },
   methods: {
     // USER SELECTION FUNCTIONS
     getFlagURL(country) {
       let url = "https://osu.ppy.sh/assets/images/flags/";
-
       for (let idx = 0; idx < country.length; idx++) {
         let char = country[idx].toUpperCase();
         url += (char.charCodeAt() + 127397).toString(16);
         url += idx !== country.length - 1 ? "-" : ".svg";
       }
-
       return url;
     },
     selectmode(mode) {
       this.selecteddata.mode = this.modes[mode];
+      this.player_recent = null;
+      this.getPlayerRecent();
     },
     selectmod(mod) {
       this.selecteddata.mod = this.mods[mod];
+      this.player_recent = null;
+      this.getPlayerRecent();
+    },
+    // FORMATTING FUNCTIONSS
+    formatSeconds(seconds) {
+      const days = Math.floor(seconds / (24 * 60 * 60));
+      const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
+      const minutes = Math.floor((seconds % (60 * 60)) / 60);
+
+      return `${days}d ${hours}h ${minutes}m`;
+    },
+    addDividingPoints(number) {
+      var numberString = number.toString();
+      var reversedString = numberString.split("").reverse().join("");
+      var resultString = reversedString.replace(/(\d{3})/g, "$1.");
+      resultString = resultString.split("").reverse().join("");
+      if (resultString.charAt(0) === ".") {
+        resultString = resultString.substr(1);
+      }
+      return resultString;
     },
     // DATA FUNCTIONS
     async getPlayerData() {
@@ -163,16 +422,23 @@ export default {
         `${this.$config.public.api_url}get_player_info?id=${this.$route.params.id}&scope=all`
       );
       this.player_info = data.player;
+      this.loading = false;
     },
     async getPlayerStatus() {
-      await axios
-        .get(
-          `${this.$config.public.api_url}get_player_status?id=${this.player_id}`
-        )
-        .then((res) => {
-          console.log(res);
-          this.player_status = res.data.player_status;
-        });
+      const data = await $fetch(
+        `${this.$config.public.api_url}get_player_status?id=${this.$route.params.id}`
+      );
+      this.player_status = data.player_status;
+    },
+    async getPlayerRecent() {
+      const data = await $fetch(
+        `${this.$config.public.api_url}get_player_scores?id=${
+          this.$route.params.id
+        }&mode=${
+          this.selecteddata.mod + this.selecteddata.mode
+        }&scope=recent&limit=5`
+      );
+      this.player_recent = data.scores;
     },
   },
 };

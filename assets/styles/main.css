@@ -12,7 +12,7 @@ body {
 
 /* color palette */
 :root {
-  --main: 250;
+  --main: 260;
   --color-bg: hsl(var(--main), 60%, 10%);
   --color-1: hsl(var(--main), 26%, 9%);
   --color-2: hsl(var(--main), 45%, 17%);
@@ -60,15 +60,15 @@ body {
 }
 
 /* scrollbar */
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 8px;
 }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: var(--color-5);
   border-radius: 3px;
 }

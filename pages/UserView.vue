@@ -301,11 +301,23 @@
               <p>About me not supported yet.</p>
             </div>
           </div>
-          <!-- Best plays -->
-          <div class="best section">
-            <p class="sectiontitle">
-              <i class="fa-solid fa-trophy"></i> Best plays
-            </p>
+        </div>
+        <!-- Best plays -->
+        <div class="recent section">
+          <div class="sectiontitle">
+            <div>
+              <i class="fa-solid fa-trophy"></i>
+              <p>Best plays</p>
+            </div>
+            <div>
+              <i
+                class="sectionbutton fa-solid fa-circle-chevron-up"
+                :class="{ sectionclosed: sectionstatuses.best }"
+                @click="this.sectionstatuses.best = !this.sectionstatuses.best"
+              ></i>
+            </div>
+          </div>
+          <div class="content" :class="{ sectionclosed: sectionstatuses.best }">
             <div
               class="loadingwrapper"
               v-if="!player_best"
@@ -326,7 +338,7 @@
               <div>
                 <div class="titlespace">
                   <div class="grade">
-                    <p>{{ play.grade }}</p>
+                    <p>{{ this.grades[play.grade] }}</p>
                   </div>
                   <div>
                     <div>
@@ -339,109 +351,119 @@
                 </div>
                 <div class="bmstats">
                   <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
-                  <p>Accuracy: <b>{{ play.acc.toFixed(2) }}%</b></p>
+                  <p>
+                    Accuracy: <b>{{ play.acc.toFixed(2) }}%</b>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <!-- Recent plays -->
-          <div class="recent section">
-            <div class="sectiontitle">
-              <div>
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <p>Recent plays</p>
+        <div class="recent section">
+          <div class="sectiontitle">
+            <div>
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <p>Recent plays</p>
+            </div>
+            <div>
+              <div
+                v-if="
+                  player_status &&
+                  player_status.online &&
+                  player_status.status.action === 2
+                "
+                class="liveind"
+                style="margin-right: 10px"
+              >
+                LIVE
               </div>
+              <i
+                class="sectionbutton fa-solid fa-circle-chevron-up"
+                :class="{ sectionclosed: sectionstatuses.recent }"
+                @click="
+                  this.sectionstatuses.recent = !this.sectionstatuses.recent
+                "
+              ></i>
+            </div>
+          </div>
+          <div
+            class="content"
+            :class="{ sectionclosed: sectionstatuses.recent }"
+          >
+            <div
+              class="loadingwrapper"
+              v-if="!player_recent"
+              style="margin: 40px"
+            >
+              <img
+                class="loading"
+                src="@/assets/icons/loading.svg"
+                style="margin: 0"
+              />
+            </div>
+            <div
+              class="play"
+              v-if="
+                player_status &&
+                player_status.online &&
+                player_status.status.action === 2
+              "
+              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${player_status.status.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
+            >
               <div>
-                <div
-                  v-if="player_status.online && player_status.status.action === 2"
-                  class="liveind"
-                  style="margin-right: 10px"
-                >
-                  LIVE
+                <div class="titlespace">
+                  <div class="grade">
+                    <p>?</p>
+                  </div>
+                  <div>
+                    <div>
+                      <p class="bmtitle">
+                        {{ player_status.status.beatmap.artist }} |
+                        {{ player_status.status.beatmap.title }}
+                      </p>
+                      <p class="bmver">
+                        {{ player_status.status.beatmap.version }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <i
-                  class="sectionbutton fa-solid fa-circle-chevron-up"
-                  :class="{ sectionclosed: sectionstatuses.recent }"
-                  @click="
-                    this.sectionstatuses.recent = !this.sectionstatuses.recent
-                  "
-                ></i>
+                <div class="bmstats">
+                  <p class="bmppstat">LIVE</p>
+                  <p>Accuracy: <b>?.??%</b></p>
+                </div>
               </div>
             </div>
             <div
-              class="content"
-              :class="{ sectionclosed: sectionstatuses.recent }"
+              class="play"
+              v-for="play in player_recent"
+              :key="play.id"
+              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
             >
-              <div
-                class="loadingwrapper"
-                v-if="!player_recent"
-                style="margin: 40px"
-              >
-                <img
-                  class="loading"
-                  src="@/assets/icons/loading.svg"
-                  style="margin: 0"
-                />
-              </div>
-              <div
-                class="play"
-                v-if="player_status.online && player_status.status.action === 2"
-                :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${player_status.status.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
-              >
-                <div>
-                  <div class="titlespace">
-                    <div class="grade">
-                      <p>?</p>
-                    </div>
-                    <div>
-                      <div>
-                        <p class="bmtitle">
-                          {{ player_status.status.beatmap.artist }} |
-                          {{ player_status.status.beatmap.title }}
-                        </p>
-                        <p class="bmver">
-                          {{ player_status.status.beatmap.version }}
-                        </p>
-                      </div>
-                    </div>
+              <div>
+                <div class="titlespace">
+                  <div class="grade">
+                    <p>{{ this.grades[play.grade] }}</p>
                   </div>
-                  <div class="bmstats">
-                    <p class="bmppstat">LIVE</p>
-                    <p>Accuracy: <b>?.??%</b></p>
+                  <div>
+                    <div>
+                      <p class="bmtitle">
+                        {{ play.beatmap.artist }} | {{ play.beatmap.title }}
+                      </p>
+                      <p class="bmver">{{ play.beatmap.version }}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="play"
-                v-for="play in player_recent"
-                :key="play.id"
-                :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
-              >
-                <div>
-                  <div class="titlespace">
-                    <div class="grade">
-                      <p>{{ play.grade }}</p>
-                    </div>
-                    <div>
-                      <div>
-                        <p class="bmtitle">
-                          {{ play.beatmap.artist }} | {{ play.beatmap.title }}
-                        </p>
-                        <p class="bmver">{{ play.beatmap.version }}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="bmstats">
-                    <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
-                    <p>
-                      Accuracy: <b>{{ play.acc.toFixed(2) }}%</b>
-                    </p>
-                  </div>
+                <div class="bmstats">
+                  <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
+                  <p>
+                    Accuracy: <b>{{ play.acc.toFixed(2) }}%</b>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -468,6 +490,17 @@ export default {
         rx: 4,
         ap: 8,
       },
+      grades: {
+        F: "F",
+        D: "D",
+        C: "C",
+        B: "B",
+        A: "A",
+        SH: "S",
+        S: "S+",
+        XH: "X",
+        X: "X+"
+      },
       selecteddata: {
         mode: 0,
         mod: 0,
@@ -476,10 +509,12 @@ export default {
       sectionstatuses: {
         aboutme: true,
         recent: true,
+        best: true,
       },
       loading: true,
       player_info: null,
       player_status: null,
+      player_best: null,
       bannerclosed: false,
     };
   },

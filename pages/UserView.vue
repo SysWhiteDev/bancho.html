@@ -349,8 +349,8 @@
             >
               <div>
                 <div class="titlespace">
-                  <div class="grade">
-                    <p>{{ this.grades[play.grade] }}</p>
+                  <div :class="'grade grade-'+play.grade">
+                    <p>{{ play.grade.replace("X", "SS" ).replace("H", "" ) }}</p>
                   </div>
                   <div>
                     <div>
@@ -466,8 +466,8 @@
             >
               <div>
                 <div class="titlespace">
-                  <div class="grade">
-                    <p>{{ this.grades[play.grade] }}</p>
+                  <div :class="'grade grade-'+play.grade">
+                    <p>{{ play.grade.replace("X", "SS" ).replace("H", "" ) }}</p>
                   </div>
                   <div>
                     <div>
@@ -523,7 +523,7 @@ export default {
         SH: "S",
         S: "S+",
         XH: "X",
-        X: "X+",
+        X: "X+"
       },
       selecteddata: {
         mode: 0,

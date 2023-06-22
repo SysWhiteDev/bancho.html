@@ -24,23 +24,6 @@
   background-color: rgba(128, 128, 128, 0.16);
 }
 
-.section {
-  background-color: var(--color-2);
-  border: 3px solid var(--color-1);
-  margin: 10px;
-  border-radius: 7px;
-}
-
-.sectiontitle {
-  padding: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: var(--color-1);
-}
-
-.sectiontitle > i {
-  margin-right: 10px;
-}
 /* titlebar */
 .titlebar {
   background-color: var(--color-2);
@@ -50,6 +33,7 @@
   align-items: center;
   font-size: clamp(15px, 2vw, 20px);
   height: 30px;
+  border-radius: 7px 7px 0px 0px;
 }
 
 /* left */
@@ -279,6 +263,59 @@
   text-align: right;
 }
 
+/* sections */
+.section {
+  background-color: var(--color-2);
+  border: 3px solid var(--color-1);
+  margin: 10px;
+  border-radius: 7px;
+  min-height: 0;
+}
+
+.sectiontitle {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: var(--color-1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.sectiontitle > div {
+  display: flex;
+  align-items: center;
+}
+
+.sectiontitle > div > p {
+  margin-left: 10px;
+}
+
+.sectionbutton {
+  transition: all 0.2s;
+  font-size: 25px;
+}
+
+.content {
+  overflow-y: scroll;
+  height: 400px;
+
+  transition: all 0.2s;
+}
+
+.sectionbutton:hover {
+  cursor: pointer;
+  color: var(--color-5);
+}
+
+.sectionbutton.sectionclosed {
+  transform: rotate(180deg);
+}
+
+.sectionclosed:not(i) {
+  height: 0px;
+}
 /* aboutme */
 .aboutmecont {
   padding: 10px;
@@ -286,6 +323,9 @@
   max-height: 300px;
 }
 
+.aboutmecont.sectionclosed {
+  padding: 0;
+}
 /* plays */
 .play {
   margin: 20px;

@@ -281,51 +281,72 @@
             </div>
           </div>
           <div class="aboutme section">
-            <p class="sectiontitle">
-              <i class="fa-solid fa-address-card"></i>About me
-            </p>
-            <div class="aboutmecont">
+            <div class="sectiontitle">
+              <div>
+                <i class="fa-solid fa-address-book"></i>
+                <p>About me</p>
+              </div>
+              <i class="sectionbutton fa-solid fa-circle-chevron-up" :class="{sectionclosed: this.sectionstatuses.aboutme}" @click="this.sectionstatuses.aboutme = !this.sectionstatuses.aboutme"></i>
+            </div>
+            <div class="content aboutmecont" :class="{sectionclosed: this.sectionstatuses.aboutme}">
               <p>About me not supported yet.</p>
             </div>
           </div>
           <div class="recent section">
-            <p class="sectiontitle">
-              <i class="fa-solid fa-clock-rotate-left"></i> Recent plays
-            </p>
-            <div
-              class="loadingwrapper"
-              v-if="!player_recent"
-              style="margin: 40px"
-            >
-              <img
-                class="loading"
-                src="@/assets/icons/loading.svg"
-                style="margin: 0"
-              />
+            <div class="sectiontitle">
+              <div>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <p>Recent plays</p>
+              </div>
+              <i
+                class="sectionbutton fa-solid fa-circle-chevron-up"
+                :class="{ sectionclosed: sectionstatuses.recent }"
+                @click="
+                  this.sectionstatuses.recent = !this.sectionstatuses.recent
+                "
+              ></i>
             </div>
             <div
-              class="play"
-              v-for="play in player_recent"
-              :key="play.id"
-              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
+              class="content"
+              :class="{ sectionclosed: sectionstatuses.recent }"
             >
-              <div>
-                <div class="titlespace">
-                  <div class="grade">
-                    <p>{{ play.grade }}</p>
-                  </div>
-                  <div>
+              <div
+                class="loadingwrapper"
+                v-if="!player_recent"
+                style="margin: 40px"
+              >
+                <img
+                  class="loading"
+                  src="@/assets/icons/loading.svg"
+                  style="margin: 0"
+                />
+              </div>
+              <div
+                class="play"
+                v-for="play in player_recent"
+                :key="play.id"
+                :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
+              >
+                <div>
+                  <div class="titlespace">
+                    <div class="grade">
+                      <p>{{ play.grade }}</p>
+                    </div>
                     <div>
-                      <p class="bmtitle">
-                        {{ play.beatmap.artist }} | {{ play.beatmap.title }}
-                      </p>
-                      <p class="bmver">{{ play.beatmap.version }}</p>
+                      <div>
+                        <p class="bmtitle">
+                          {{ play.beatmap.artist }} | {{ play.beatmap.title }}
+                        </p>
+                        <p class="bmver">{{ play.beatmap.version }}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="bmstats">
-                  <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
-                  <p>Accuracy: <b>{{ play.acc.toFixed(2) }}%</b></p>
+                  <div class="bmstats">
+                    <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
+                    <p>
+                      Accuracy: <b>{{ play.acc.toFixed(2) }}%</b>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -362,6 +383,10 @@ export default {
         mode: 0,
         mod: 0,
         sorting: "pp",
+      },
+      sectionstatuses: {
+        aboutme: true,
+        recent: true,
       },
       loading: true,
       player_info: null,

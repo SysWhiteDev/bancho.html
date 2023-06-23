@@ -349,8 +349,8 @@
             >
               <div>
                 <div class="titlespace">
-                  <div :class="'grade grade-'+play.grade">
-                    <p>{{ play.grade.replace("X", "SS" ).replace("H", "" ) }}</p>
+                  <div :class="'grade grade-' + play.grade">
+                    <p>{{ play.grade.replace("X", "SS").replace("H", "") }}</p>
                   </div>
                   <div>
                     <div>
@@ -383,7 +383,9 @@
                 v-if="
                   player_status &&
                   player_status.online &&
-                  player_status.status.action === 2
+                  player_status.status.action === 2 &&
+                  this.selecteddata.mod + this.selecteddata.mode ===
+                    player_status.status.mode
                 "
                 class="liveind"
                 style="margin-right: 10px"
@@ -404,34 +406,13 @@
             :class="{ sectionclosed: sectionstatuses.recent }"
           >
             <div
-              class="loadingwrapper"
-              v-if="!player_recent"
-              style="margin: 40px"
-            >
-              <img
-                class="loading"
-                src="@/assets/icons/loading.svg"
-                style="margin: 0"
-              />
-            </div>
-            <div
-              class="loadingwrapper"
-              v-if="player_recent && player_recent.length === 0"
-              style="margin: 40px"
-            >
-              <img
-                class="loading"
-                src="@/assets/icons/sad.svg"
-                style="animation: none"
-              />
-              <p>User doesn't have any recent score.</p>
-            </div>
-            <div
               class="play"
               v-if="
                 player_status &&
                 player_status.online &&
-                player_status.status.action === 2
+                player_status.status.action === 2 &&
+                this.selecteddata.mod + this.selecteddata.mode ===
+                  player_status.status.mode
               "
               :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${player_status.status.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
             >
@@ -459,6 +440,30 @@
               </div>
             </div>
             <div
+              class="loadingwrapper"
+              v-if="!player_recent"
+              style="margin: 40px"
+            >
+              <img
+                class="loading"
+                src="@/assets/icons/loading.svg"
+                style="margin: 0"
+              />
+            </div>
+            <div
+              class="loadingwrapper"
+              v-if="player_recent && player_recent.length === 0"
+              style="margin: 40px"
+            >
+              <img
+                class="loading"
+                src="@/assets/icons/sad.svg"
+                style="animation: none"
+              />
+              <p>User doesn't have any recent score.</p>
+            </div>
+
+            <div
               class="play"
               v-for="play in player_recent"
               :key="play.id"
@@ -466,8 +471,8 @@
             >
               <div>
                 <div class="titlespace">
-                  <div :class="'grade grade-'+play.grade">
-                    <p>{{ play.grade.replace("X", "SS" ).replace("H", "" ) }}</p>
+                  <div :class="'grade grade-' + play.grade">
+                    <p>{{ play.grade.replace("X", "SS").replace("H", "") }}</p>
                   </div>
                   <div>
                     <div>
@@ -523,7 +528,7 @@ export default {
         SH: "S",
         S: "S+",
         XH: "X",
-        X: "X+"
+        X: "X+",
       },
       selecteddata: {
         mode: 0,
@@ -581,7 +586,6 @@ export default {
       const days = Math.floor(seconds / (24 * 60 * 60));
       const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
       const minutes = Math.floor((seconds % (60 * 60)) / 60);
-
       return `${days}d ${hours}h ${minutes}m`;
     },
     addDividingPoints(number) {

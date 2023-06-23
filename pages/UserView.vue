@@ -288,15 +288,15 @@
               </div>
               <i
                 class="sectionbutton fa-solid fa-circle-chevron-up"
-                :class="{ sectionclosed: this.sectionstatuses.aboutme }"
+                :class="{ sectionclosed: sectionstatuses.aboutme }"
                 @click="
-                  this.sectionstatuses.aboutme = !this.sectionstatuses.aboutme
+                  sectionstatuses.aboutme = !sectionstatuses.aboutme
                 "
               ></i>
             </div>
             <div
               class="content aboutmecont"
-              :class="{ sectionclosed: this.sectionstatuses.aboutme }"
+              :class="{ sectionclosed: sectionstatuses.aboutme }"
             >
               <p>About me not supported yet.</p>
             </div>
@@ -313,7 +313,7 @@
               <i
                 class="sectionbutton fa-solid fa-circle-chevron-up"
                 :class="{ sectionclosed: sectionstatuses.best }"
-                @click="this.sectionstatuses.best = !this.sectionstatuses.best"
+                @click="sectionstatuses.best = !sectionstatuses.best"
               ></i>
             </div>
           </div>
@@ -364,7 +364,7 @@
                 <div class="bmstats">
                   <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
                   <p>
-                    Accuracy: <b>{{ play.acc.toFixed(2) }}%</b>
+                    <b>{{ play.acc.toFixed(2) }}%</b>
                   </p>
                 </div>
               </div>
@@ -396,7 +396,7 @@
                 class="sectionbutton fa-solid fa-circle-chevron-up"
                 :class="{ sectionclosed: sectionstatuses.recent }"
                 @click="
-                  this.sectionstatuses.recent = !this.sectionstatuses.recent
+                  sectionstatuses.recent = !sectionstatuses.recent
                 "
               ></i>
             </div>
@@ -544,6 +544,7 @@ export default {
       player_info: null,
       player_status: null,
       player_best: null,
+      player_recent: null,
       bannerclosed: false,
     };
   },

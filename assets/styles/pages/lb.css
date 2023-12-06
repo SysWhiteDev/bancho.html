@@ -28,6 +28,7 @@
   background-image: url("/backgrounds/lb.png");
   color: var(--color-6);
   padding: 50px 0px 50px 0px;
+  overflow: hidden;
 }
 
 .tabletitle > .title {
@@ -42,6 +43,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: wrap;
 }
 .selector {
   display: flex;

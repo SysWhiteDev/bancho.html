@@ -6,85 +6,58 @@
         <div class="title">Leaderboard</div>
         <div class="selectors">
           <div class="selector">
-            <div
-              @click="selectsort('pp')"
-              :class="{ sactive: selecteddata.sorting === sorts.pp }"
-            >
+            <div @click="selectsort('pp')" :class="{ sactive: selecteddata.sorting === sorts.pp }">
               <i class="fa-solid fa-subscript"></i>
               <p>pp</p>
             </div>
-            <div
-              @click="selectsort('score')"
-              :class="{ sactive: selecteddata.sorting === sorts.score }"
-            >
+            <div @click="selectsort('score')" :class="{ sactive: selecteddata.sorting === sorts.score }">
               <i class="fa-solid fa-star"></i>
               <p>score</p>
             </div>
           </div>
           <div class="selector">
-            <div
-              :class="{ sactive: selecteddata.mode == modes.std }"
-              @click="selectmode('std')"
-            >
+            <div :class="{ sactive: selecteddata.mode == modes.std }" @click="selectmode('std')">
               <p>osu!std</p>
             </div>
-            <div
-              :class="{
-                sactive: selecteddata.mode == modes.taiko,
-                sdisabled: selecteddata.mod == mods.ap,
-              }"
-              @click="selectmode('taiko')"
-            >
+            <div :class="{
+              sactive: selecteddata.mode == modes.taiko,
+              sdisabled: selecteddata.mod == mods.ap,
+            }" @click="selectmode('taiko')">
               <p>osu!taiko</p>
             </div>
-            <div
-              :class="{
-                sactive: selecteddata.mode == modes.catch,
-                sdisabled: selecteddata.mod == mods.ap,
-              }"
-              @click="selectmode('catch')"
-            >
+            <div :class="{
+              sactive: selecteddata.mode == modes.catch,
+              sdisabled: selecteddata.mod == mods.ap,
+            }" @click="selectmode('catch')">
               <p>osu!catch</p>
             </div>
-            <div
-              :class="{
-                sactive: selecteddata.mode == modes.mania,
-                sdisabled:
-                  selecteddata.mod == mods.ap || selecteddata.mod == mods.rx,
-              }"
-              @click="selectmode('mania')"
-            >
+            <div :class="{
+              sactive: selecteddata.mode == modes.mania,
+              sdisabled:
+                selecteddata.mod == mods.ap || selecteddata.mod == mods.rx,
+            }" @click="selectmode('mania')">
               <p>osu!mania</p>
             </div>
           </div>
           <div class="selector">
-            <div
-              @click="this.selectmod('vn')"
-              :class="{ sactive: selecteddata.mod == mods.vn }"
-            >
+            <div @click="this.selectmod('vn')" :class="{ sactive: selecteddata.mod == mods.vn }">
               <i class="fa-solid fa-martini-glass-empty"></i>
               <p>vn</p>
             </div>
-            <div
-              @click="this.selectmod('rx')"
-              :class="{
-                sactive: selecteddata.mod == mods.rx,
-                sdisabled: selecteddata.mode == modes.mania,
-              }"
-            >
+            <div @click="this.selectmod('rx')" :class="{
+              sactive: selecteddata.mod == mods.rx,
+              sdisabled: selecteddata.mode == modes.mania,
+            }">
               <i class="fa-solid fa-martini-glass-citrus"></i>
               <p>rx</p>
             </div>
-            <div
-              @click="this.selectmod('ap')"
-              :class="{
-                sactive: selecteddata.mod == mods.ap,
-                sdisabled:
-                  selecteddata.mode == modes.mania ||
-                  selecteddata.mode == modes.taiko ||
-                  selecteddata.mode == modes.catch,
-              }"
-            >
+            <div @click="this.selectmod('ap')" :class="{
+              sactive: selecteddata.mod == mods.ap,
+              sdisabled:
+                selecteddata.mode == modes.mania ||
+                selecteddata.mode == modes.taiko ||
+                selecteddata.mode == modes.catch,
+            }">
               <i class="fa-solid fa-plane"></i>
               <p>ap</p>
             </div>
@@ -97,28 +70,16 @@
         <p>Hold tight, we are still loading...</p>
       </div>
       <div class="loadingwrapper" v-if="!loading && !error && !lbdata[0]">
-        <img
-          class="loading"
-          src="@/assets/icons/sad.svg"
-          style="animation: none"
-        />
+        <img class="loading" src="@/assets/icons/sad.svg" style="animation: none" />
         <p>There is no one here, maybe set a score?</p>
       </div>
       <div class="loadingwrapper" v-if="error">
-        <img
-          class="loading"
-          src="@/assets/icons/error.svg"
-          style="animation: none"
-        />
+        <img class="loading" src="@/assets/icons/error.svg" style="animation: none" />
         <p>Something went wrong... please try again later.</p>
       </div>
       <div v-if="!loading && !error">
-        <div
-          class="top top1 player"
-          @click="$router.push(`/u/${lbdata[0].player_id}`)"
-          v-if="lbdata[0]"
-          :style="`background-image: url(https://${config.public.base_url}banners/${lbdata[0].player_id}); background-size: cover;`"
-        >
+        <div class="top top1 player" @click="$router.push(`/u/${lbdata[0].player_id}`)" v-if="lbdata[0]"
+          :style="`background-image: url(https://${config.public.base_url}banners/${lbdata[0].player_id}); background-size: cover;`">
           <div class="leaderboard-player-rank">
             <i class="fa-solid fa-trophy badge" style="color: #f9cb6b"></i>
           </div>
@@ -135,50 +96,32 @@
                     <br /><span style="font-weight: bold">pp</span>
                   </p>
                   <p v-else>
-                    {{ formatNumber(lbdata[0].rscore) }}<br /><span
-                      style="font-weight: bold"
-                      >score</span
-                    >
+                    {{ formatNumber(lbdata[0].rscore) }}<br /><span style="font-weight: bold">score</span>
                   </p>
                 </div>
                 <div class="acc">
                   <p>
-                    {{ lbdata[0].acc.toFixed(2) }}%<br /><span
-                      style="font-weight: bold"
-                      >acc</span
-                    >
+                    {{ lbdata[0].acc.toFixed(2) }}%<br /><span style="font-weight: bold">acc</span>
                   </p>
                 </div>
                 <div class="plays">
                   <p>
-                    {{ lbdata[0].plays }}<br /><span style="font-weight: bold"
-                      >plays</span
-                    >
+                    {{ lbdata[0].plays }}<br /><span style="font-weight: bold">plays</span>
                   </p>
                 </div>
                 <div class="combo">
                   <p>
-                    {{ lbdata[0].max_combo }}<br /><span
-                      style="font-weight: bold"
-                      >max combo</span
-                    >
+                    {{ lbdata[0].max_combo }}<br /><span style="font-weight: bold">max combo</span>
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div
-          class="player"
-          style="background: transparent; padding: 0"
-          v-if="lbdata[4]"
-        >
+        <div class="player" style="background: transparent; padding: 0" v-if="lbdata[4]">
           <div class="left"></div>
           <div class="right" style="padding: 0">
-            <p
-              v-if="selecteddata.sorting == sorts.pp"
-              style="padding-right: 21px"
-            >
+            <p v-if="selecteddata.sorting == sorts.pp" style="padding-right: 21px">
               pp
             </p>
             <p v-else style="width: 6vw">score</p>
@@ -187,13 +130,8 @@
             <p style="padding-left: 5px; padding-right: 10px">max combo</p>
           </div>
         </div>
-        <div
-          class="player"
-          v-for="(player, index) in lbdata.slice(1)"
-          :class="'top' + (index + 2)"
-          :key="player.player_id"
-          @click="$router.push(`/u/${player.player_id}`)"
-        >
+        <div class="player" v-for="(player, index) in lbdata.slice(1)" :class="'top' + (index + 2)"
+          :key="player.player_id" @click="$router.push(`/u/${player.player_id}`)">
           <div class="left">
             <img :src="getFlagURL(player.country)" class="flag" />
             <div class="leaderboard-player-rank" v-if="index === 0">
@@ -206,10 +144,7 @@
             <div class="leaderboard-player-name">{{ player.name }}</div>
           </div>
           <div class="right">
-            <p
-              v-if="selecteddata.sorting == sorts.pp"
-              style="padding-right: 20px"
-            >
+            <p v-if="selecteddata.sorting == sorts.pp" style="padding-right: 20px">
               {{ formatNumber(player.pp) }}pp
             </p>
             <p v-else style="width: 6vw">{{ formatNumber(player.rscore) }}</p>
@@ -276,8 +211,7 @@ export default {
       this.error = false;
       this.lbdata = null;
       const lbdata = await $fetch(
-        `${this.$config.public.api_url}get_leaderboard?mode=${
-          this.selecteddata.mode + this.selecteddata.mod
+        `${this.$config.public.apiUrl}get_leaderboard?mode=${this.selecteddata.mode + this.selecteddata.mod
         }&sort=${this.selecteddata.sorting}`
       ).catch((error) => {
         this.error = true;

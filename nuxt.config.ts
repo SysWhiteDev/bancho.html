@@ -18,8 +18,8 @@ export default defineNuxtConfig({
     public: {
       name: "bancho.html",
       img: true,
-      base_url: undefined,
-      api_url: undefined
+      baseUrl: undefined,
+      apiUrl: undefined
     },
   },
   app: {

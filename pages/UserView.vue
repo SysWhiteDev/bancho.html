@@ -9,118 +9,80 @@
         </div>
         <div class="right">
           <div class="selector">
-            <div
-              :class="{ sactive: selecteddata.mode == modes.std }"
-              @click="selectmode('std')"
-            >
+            <div :class="{ sactive: selecteddata.mode == modes.std }" @click="selectmode('std')">
               osu!std
             </div>
-            <div
-              :class="{
-                sactive: selecteddata.mode == modes.taiko,
-                sdisabled: selecteddata.mod == mods.ap,
-              }"
-              @click="selectmode('taiko')"
-            >
+            <div :class="{
+              sactive: selecteddata.mode == modes.taiko,
+              sdisabled: selecteddata.mod == mods.ap,
+            }" @click="selectmode('taiko')">
               osu!taiko
             </div>
-            <div
-              :class="{
-                sactive: selecteddata.mode == modes.catch,
-                sdisabled: selecteddata.mod == mods.ap,
-              }"
-              @click="selectmode('catch')"
-            >
+            <div :class="{
+              sactive: selecteddata.mode == modes.catch,
+              sdisabled: selecteddata.mod == mods.ap,
+            }" @click="selectmode('catch')">
               osu!catch
             </div>
-            <div
-              :class="{
-                sactive: selecteddata.mode == modes.mania,
-                sdisabled:
-                  selecteddata.mod == mods.ap || selecteddata.mod == mods.rx,
-              }"
-              @click="selectmode('mania')"
-            >
+            <div :class="{
+              sactive: selecteddata.mode == modes.mania,
+              sdisabled:
+                selecteddata.mod == mods.ap || selecteddata.mod == mods.rx,
+            }" @click="selectmode('mania')">
               osu!mania
             </div>
-            <div
-              @click="this.selectmod('vn')"
-              :class="{ sactive: selecteddata.mod == mods.vn }"
-            >
+            <div @click="this.selectmod('vn')" :class="{ sactive: selecteddata.mod == mods.vn }">
               <i class="fa-solid fa-martini-glass-empty"></i>
             </div>
-            <div
-              @click="this.selectmod('rx')"
-              :class="{
-                sactive: selecteddata.mod == mods.rx,
-                sdisabled: selecteddata.mode == modes.mania,
-              }"
-            >
+            <div @click="this.selectmod('rx')" :class="{
+              sactive: selecteddata.mod == mods.rx,
+              sdisabled: selecteddata.mode == modes.mania,
+            }">
               <i class="fa-solid fa-martini-glass-citrus"></i>
             </div>
-            <div
-              @click="this.selectmod('ap')"
-              :class="{
-                sactive: selecteddata.mod == mods.ap,
-                sdisabled:
-                  selecteddata.mode == modes.mania ||
-                  selecteddata.mode == modes.taiko ||
-                  selecteddata.mode == modes.catch,
-              }"
-            >
+            <div @click="this.selectmod('ap')" :class="{
+              sactive: selecteddata.mod == mods.ap,
+              sdisabled:
+                selecteddata.mode == modes.mania ||
+                selecteddata.mode == modes.taiko ||
+                selecteddata.mode == modes.catch,
+            }">
               <i class="fa-solid fa-plane"></i>
             </div>
           </div>
         </div>
       </div>
       <div class="userprofile">
-        <div
-          class="banner"
-          :style="
-            player_info
-              ? `background-image: url(https://${config.public.base_url}banners/${player_info.info.id}); background-size: cover;`
-              : undefined
-          "
-          :class="{ bannerclosed: bannerclosed }"
-        ></div>
+        <div class="banner" :style="player_info
+            ? `background-image: url(https://${config.public.base_url}banners/${player_info.info.id}); background-size: cover;`
+            : undefined
+          " :class="{ bannerclosed: bannerclosed }"></div>
         <div class="userdata" :class="{ bannerclosed: bannerclosed }">
-          <img
-            :src="
-              player_info
-                ? `https://a.${config.public.base_url}${player_info.info.id}`
-                : `https://a.${config.public.base_url}`
-            "
-            class="pfp"
-            :class="{ online: player_status && player_status.online }"
-          />
+          <img :src="player_info
+              ? `https://a.${config.public.base_url}${player_info.info.id}`
+              : `https://a.${config.public.base_url}`
+            " class="pfp" :class="{ online: player_status && player_status.online }" />
 
           <div class="text">
             <p class="usernametext">
               {{ player_info ? player_info.info.name : "..." }}
             </p>
             <div class="country">
-              <img
-                :src="
-                  player_info
-                    ? getFlagURL(player_info.info.country)
-                    : getFlagURL('xx')
-                "
-                class="flag"
-              />
+              <img :src="player_info
+                  ? getFlagURL(player_info.info.country)
+                  : getFlagURL('xx')
+                " class="flag" />
               <p>
                 {{
                   player_info
-                    ? countries[player_info.info.country.toUpperCase()]
-                    : countries["XX"]
+                  ? countries[player_info.info.country.toUpperCase()]
+                  : countries["XX"]
                 }}
               </p>
             </div>
           </div>
-          <i
-            class="bannerbutton fa-solid fa-circle-chevron-up"
-            @click="bannerclosed = !bannerclosed"
-            :class="{ bannerclosed: bannerclosed }"
-          ></i>
+          <i class="bannerbutton fa-solid fa-circle-chevron-up" @click="bannerclosed = !bannerclosed"
+            :class="{ bannerclosed: bannerclosed }"></i>
         </div>
         <div class="loadingwrapper" v-if="loading">
           <img class="loading" src="@/assets/icons/loading.svg" />
@@ -286,208 +248,145 @@
                 <i class="fa-solid fa-address-book"></i>
                 <p>About me</p>
               </div>
-              <i
-                class="sectionbutton fa-solid fa-circle-chevron-up"
-                :class="{ sectionclosed: sectionstatuses.aboutme }"
+              <i class="sectionbutton fa-solid fa-circle-chevron-up" :class="{ sectionclosed: sectionstatuses.aboutme }"
                 @click="
                   sectionstatuses.aboutme = !sectionstatuses.aboutme
-                "
-              ></i>
+                  "></i>
             </div>
-            <div
-              class="content aboutmecont"
-              :class="{ sectionclosed: sectionstatuses.aboutme }"
-            >
+            <div class="content aboutmecont" :class="{ sectionclosed: sectionstatuses.aboutme }">
               <p>About me not supported yet.</p>
             </div>
           </div>
-        </div>
-        <!-- Best plays -->
-        <div class="recent section">
-          <div class="sectiontitle">
-            <div>
-              <i class="fa-solid fa-trophy"></i>
-              <p>Best plays</p>
-            </div>
-            <div>
-              <i
-                class="sectionbutton fa-solid fa-circle-chevron-up"
-                :class="{ sectionclosed: sectionstatuses.best }"
-                @click="sectionstatuses.best = !sectionstatuses.best"
-              ></i>
-            </div>
-          </div>
-          <div class="content" :class="{ sectionclosed: sectionstatuses.best }">
-            <div
-              class="loadingwrapper"
-              v-if="!player_best"
-              style="margin: 40px"
-            >
-              <img
-                class="loading"
-                src="@/assets/icons/loading.svg"
-                style="margin: 0"
-              />
-            </div>
-            <div
-              class="loadingwrapper"
-              v-if="player_best && player_best.length === 0"
-              style="margin: 40px"
-            >
-              <img
-                class="loading"
-                src="@/assets/icons/sad.svg"
-                style="animation: none"
-              />
-              <p>User doesn't have any best score.</p>
-            </div>
-            <div
-              class="play"
-              v-for="play in player_best"
-              :key="play.id"
-              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
-            >
+
+          <!-- Best plays -->
+          <div class="recent section">
+            <div class="sectiontitle">
               <div>
-                <div class="titlespace">
-                  <div :class="'grade grade-' + play.grade">
-                    <p>{{ play.grade.replace("X", "SS").replace("H", "") }}</p>
-                  </div>
-                  <div>
+                <i class="fa-solid fa-trophy"></i>
+                <p>Best plays</p>
+              </div>
+              <div>
+                <i class="sectionbutton fa-solid fa-circle-chevron-up" :class="{ sectionclosed: sectionstatuses.best }"
+                  @click="sectionstatuses.best = !sectionstatuses.best"></i>
+              </div>
+            </div>
+            <div class="content" :class="{ sectionclosed: sectionstatuses.best }">
+              <div class="loadingwrapper" v-if="!player_best" style="margin: 40px">
+                <img class="loading" src="@/assets/icons/loading.svg" style="margin: 0" />
+              </div>
+              <div class="loadingwrapper" v-if="player_best && player_best.length === 0" style="margin: 40px">
+                <img class="loading" src="@/assets/icons/sad.svg" style="animation: none" />
+                <p>User doesn't have any best score.</p>
+              </div>
+              <div class="play" v-for="play in player_best" :key="play.id"
+                :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`">
+                <div>
+                  <div class="titlespace">
+                    <div :class="'grade grade-' + play.grade">
+                      <p>{{ play.grade.replace("X", "SS").replace("H", "") }}</p>
+                    </div>
                     <div>
-                      <p class="bmtitle">
-                        {{ play.beatmap.artist }} | {{ play.beatmap.title }}
-                      </p>
-                      <p class="bmver">{{ play.beatmap.version }}</p>
+                      <div>
+                        <p class="bmtitle">
+                          {{ play.beatmap.artist }} | {{ play.beatmap.title }}
+                        </p>
+                        <p class="bmver">{{ play.beatmap.version }}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="bmstats">
-                  <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
-                  <p>
-                    <b>{{ play.acc.toFixed(2) }}%</b>
-                  </p>
+                  <div class="bmstats">
+                    <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
+                    <p>
+                      <b>{{ play.acc.toFixed(2) }}%</b>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Recent plays -->
-        <div class="recent section">
-          <div class="sectiontitle">
-            <div>
-              <i class="fa-solid fa-clock-rotate-left"></i>
-              <p>Recent plays</p>
-            </div>
-            <div>
-              <div
-                v-if="
-                  player_status &&
+          <!-- Recent plays -->
+          <div class="recent section">
+            <div class="sectiontitle">
+              <div>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <p>Recent plays</p>
+              </div>
+              <div>
+                <div v-if="player_status &&
                   player_status.online &&
                   player_status.status.action === 2 &&
                   this.selecteddata.mod + this.selecteddata.mode ===
-                    player_status.status.mode
-                "
-                class="liveind"
-                style="margin-right: 10px"
-              >
-                LIVE
+                  player_status.status.mode
+                  " class="liveind" style="margin-right: 10px">
+                  LIVE
+                </div>
+                <i class="sectionbutton fa-solid fa-circle-chevron-up" :class="{ sectionclosed: sectionstatuses.recent }"
+                  @click="
+                    sectionstatuses.recent = !sectionstatuses.recent
+                    "></i>
               </div>
-              <i
-                class="sectionbutton fa-solid fa-circle-chevron-up"
-                :class="{ sectionclosed: sectionstatuses.recent }"
-                @click="
-                  sectionstatuses.recent = !sectionstatuses.recent
-                "
-              ></i>
             </div>
-          </div>
-          <div
-            class="content"
-            :class="{ sectionclosed: sectionstatuses.recent }"
-          >
-            <div
-              class="play"
-              v-if="
-                player_status &&
+            <div class="content" :class="{ sectionclosed: sectionstatuses.recent }">
+              <div class="play" v-if="player_status &&
                 player_status.online &&
                 player_status.status.action === 2 &&
                 this.selecteddata.mod + this.selecteddata.mode ===
-                  player_status.status.mode
-              "
-              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${player_status.status.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
-            >
-              <div>
-                <div class="titlespace">
-                  <div class="grade">
-                    <p>?</p>
-                  </div>
-                  <div>
+                player_status.status.mode
+                "
+                :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${player_status.status.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`">
+                <div>
+                  <div class="titlespace">
+                    <div class="grade">
+                      <p>?</p>
+                    </div>
                     <div>
-                      <p class="bmtitle">
-                        {{ player_status.status.beatmap.artist }} |
-                        {{ player_status.status.beatmap.title }}
-                      </p>
-                      <p class="bmver">
-                        {{ player_status.status.beatmap.version }}
-                      </p>
+                      <div>
+                        <p class="bmtitle">
+                          {{ player_status.status.beatmap.artist }} |
+                          {{ player_status.status.beatmap.title }}
+                        </p>
+                        <p class="bmver">
+                          {{ player_status.status.beatmap.version }}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="bmstats">
-                  <p class="bmppstat">LIVE</p>
-                  <p>Accuracy: <b>?.??%</b></p>
+                  <div class="bmstats">
+                    <p class="bmppstat">LIVE</p>
+                    <p>Accuracy: <b>?.??%</b></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="loadingwrapper"
-              v-if="!player_recent"
-              style="margin: 40px"
-            >
-              <img
-                class="loading"
-                src="@/assets/icons/loading.svg"
-                style="margin: 0"
-              />
-            </div>
-            <div
-              class="loadingwrapper"
-              v-if="player_recent && player_recent.length === 0"
-              style="margin: 40px"
-            >
-              <img
-                class="loading"
-                src="@/assets/icons/sad.svg"
-                style="animation: none"
-              />
-              <p>User doesn't have any recent score.</p>
-            </div>
+              <div class="loadingwrapper" v-if="!player_recent" style="margin: 40px">
+                <img class="loading" src="@/assets/icons/loading.svg" style="margin: 0" />
+              </div>
+              <div class="loadingwrapper" v-if="player_recent && player_recent.length === 0" style="margin: 40px">
+                <img class="loading" src="@/assets/icons/sad.svg" style="animation: none" />
+                <p>User doesn't have any recent score.</p>
+              </div>
 
-            <div
-              class="play"
-              v-for="play in player_recent"
-              :key="play.id"
-              :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`"
-            >
-              <div>
-                <div class="titlespace">
-                  <div :class="'grade grade-' + play.grade">
-                    <p>{{ play.grade.replace("X", "SS").replace("H", "") }}</p>
-                  </div>
-                  <div>
+              <div class="play" v-for="play in player_recent" :key="play.id"
+                :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${play.beatmap.set_id}/covers/card.jpg); background-repeat: no-repeat; background-size: cover;`">
+                <div>
+                  <div class="titlespace">
+                    <div :class="'grade grade-' + play.grade">
+                      <p>{{ play.grade.replace("X", "SS").replace("H", "") }}</p>
+                    </div>
                     <div>
-                      <p class="bmtitle">
-                        {{ play.beatmap.artist }} | {{ play.beatmap.title }}
-                      </p>
-                      <p class="bmver">{{ play.beatmap.version }}</p>
+                      <div>
+                        <p class="bmtitle">
+                          {{ play.beatmap.artist }} | {{ play.beatmap.title }}
+                        </p>
+                        <p class="bmver">{{ play.beatmap.version }}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="bmstats">
-                  <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
-                  <p>
-                    Accuracy: <b>{{ play.acc.toFixed(2) }}%</b>
-                  </p>
+                  <div class="bmstats">
+                    <p class="bmppstat">{{ play.pp.toFixed(0) }}pp</p>
+                    <p>
+                      Accuracy: <b>{{ play.acc.toFixed(2) }}%</b>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -615,20 +514,16 @@ export default {
     },
     async getPlayerRecent() {
       const data = await $fetch(
-        `${this.$config.public.api_url}get_player_scores?id=${
-          this.$route.params.id
-        }&mode=${
-          this.selecteddata.mod + this.selecteddata.mode
+        `${this.$config.public.api_url}get_player_scores?id=${this.$route.params.id
+        }&mode=${this.selecteddata.mod + this.selecteddata.mode
         }&scope=recent&limit=5`
       );
       this.player_recent = data.scores;
     },
     async getPlayerBest() {
       const data = await $fetch(
-        `${this.$config.public.api_url}get_player_scores?id=${
-          this.$route.params.id
-        }&mode=${
-          this.selecteddata.mod + this.selecteddata.mode
+        `${this.$config.public.api_url}get_player_scores?id=${this.$route.params.id
+        }&mode=${this.selecteddata.mod + this.selecteddata.mode
         }&scope=best&limit=5`
       );
       this.player_best = data.scores;

@@ -11,7 +11,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@types/node": "^18",
-    "nuxt": "^3.5.2"
+    "nuxt": "^3.8.2"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
